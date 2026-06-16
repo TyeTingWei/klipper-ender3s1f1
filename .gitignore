@@ -1,0 +1,4 @@
+﻿# Ignore Klipper source (will be downloaded by GitHub Actions)
+klipper/
+*.bin
+*.elf
