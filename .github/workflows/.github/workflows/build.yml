@@ -1,0 +1,30 @@
+﻿name: Build Klipper Firmware - Ender 3 S1 F1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone Klipper
+        run: git clone https://github.com/Klipper3d/klipper.git --depth 1
+
+      - name: Configure firmware
+        run: |
+          cp ender3s1f1.config klipper/.config
+          cd klipper
+          make olddefconfig
+
+      - name: Build
+        run: |
+          cd klipper
+          make -j$(nproc)
+
+      - name: Upload firmware.bin
+        uses: actions/upload-artifact@v4
+        with:
+          name: klipper-ender3s1f1-firmware
+          path: klipper/out/klipper.bin
