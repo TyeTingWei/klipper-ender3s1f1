@@ -22,14 +22,12 @@ jobs:
         run: |
           cd klipper
           rm -f .config
-          cat > .config << 'EOF'
-CONFIG_LOW_LEVEL_OPTIONS=y
-CONFIG_MACH_STM32=y
-CONFIG_MACH_STM32F103=y
-CONFIG_CLOCK_REF_8M=y
-CONFIG_STM32_SERIAL_USART1=y
-CONFIG_STM32_FLASH_START_7000=y
-EOF
+          echo "CONFIG_LOW_LEVEL_OPTIONS=y" > .config
+          echo "CONFIG_MACH_STM32=y" >> .config
+          echo "CONFIG_MACH_STM32F103=y" >> .config
+          echo "CONFIG_CLOCK_REF_8M=y" >> .config
+          echo "CONFIG_STM32_SERIAL_USART1=y" >> .config
+          echo "CONFIG_STM32_FLASH_START_7000=y" >> .config
           python lib/kconfiglib/olddefconfig.py src/Kconfig
 
       - name: Build firmware
